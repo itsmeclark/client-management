@@ -6,25 +6,25 @@ function LoginPage(){
     const [message, setMessage] = useState('')
     const navigate = useNavigate()
 
-    // useEffect(()=>{
-    //     const isLoggedUserin = async ()=>{
-    //      try{
-    //         const response = await fetch('http://localhost:3000/auth/login', {
-    //             credentials : 'include',
-    //         })
-    //         const data = await response.json()
-    //         if(data.isLoggedIn === true){
-    //             navigate('/home')
-    //         }
-    //         setMessage(data.message)
+    useEffect(()=>{
+        const isLoggedUserin = async ()=>{
+         try{
+            const response = await fetch('http://localhost:3000/auth/me', {
+                credentials : 'include',
+            })
+            const data = await response.json()
+            if(data.isLoggedIn === true){
+                navigate('/home/dashboard')
+            }
+            setMessage(data.message)
             
-    //     }catch(err){
-    //         setMessage(err.message)
-    //     }
-    //     }
+        }catch(error){
+            setMessage(error)
+        }
+        }
 
-    //     isLoggedUserin()
-    // }, [navigate])
+        isLoggedUserin()
+    }, [])
     
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -42,7 +42,7 @@ function LoginPage(){
             })
             const data = await response.json()
             if(data.isLoggedIn === true){
-                navigate('/home')
+                navigate('/home/dashboard')
             }
             setMessage(data.message)
             

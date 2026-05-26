@@ -1,9 +1,9 @@
 import express from 'express'
 import { isUserLoggin } from '../middlewares/home.middleware.js';
-import { findUserByEmail } from '../controllers/home.controller.js';
+import { displayInDashboard } from '../controllers/home.controller.js';
 
 const router = express.Router()
 
-router.get('/dashboard', isUserLoggin, findUserByEmail)
+router.get('/dashboard', isUserLoggin, displayInDashboard )
 
 export default router;

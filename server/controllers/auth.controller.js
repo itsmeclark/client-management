@@ -22,10 +22,10 @@ export const findUser = (req, res) => {
             if(hashPass){
                 req.session.user = userNoPass
                 req.session.save(()=>{
-                     return res.json({
-                    message : 'SUCCESSFULLY LOGIN!',
-                    user : userNoPass,
-                    isLoggedIn : true
+                    return res.json({
+                        message : 'SUCCESSFULLY LOGIN!',
+                        user : userNoPass,
+                        isLoggedIn : true
                 })
                 })
                

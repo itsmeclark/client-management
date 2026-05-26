@@ -1,19 +1,19 @@
-import {totalClients} from '../models/home.model.js'
+import { dashboard } from "../models/home.model.js";
 
-export const findUserByEmail = (req, res)=>{
-    if(req.session.user){
+export const displayInDashboard = async (req, res) =>{
+    try{
+        const {id} = req.session.user
+
+        const data = await dashboard(id)
+
         return res.json({
-            user : req.session.user,
-            message : 'user login'
+            ...data,
+            message : 'successfull'
+        })
+
+    }catch(err){
+        return res.json({
+            err
         })
     }
-}
-export const displayTotalClients = (req, res) => {
-    const {id} = req.session.user
-
-    totalClients(id, (err, results)=>{
-        return res.json({
-            result : results[0]
-        })
-    })
 }

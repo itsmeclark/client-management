@@ -4,7 +4,9 @@ import styles from '../assets/css/homePage.module.css'
 
 function HomePage(){
     const [message, setMessage] = useState('')
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({
+        userInfo : {}
+    })
 
     useEffect(()=>{
         const isLoggedUserin = async ()=>{
@@ -13,8 +15,9 @@ function HomePage(){
                 credentials : 'include',
             })
             const data = await response.json()
-            setUser(data.user)
-            setMessage(data.message)
+
+            setUser(data)
+            setMessage('sadsd')
             
         }catch(err){
             setMessage(err.message)
@@ -31,23 +34,23 @@ function HomePage(){
                     <div className={styles.stats_container}>
                         <div className={styles.total_clients}>
                             <p>Total Clients</p>
-                            <p>15</p>
+                            <p>{user.totalClients}</p>
                         </div>
                         <div className={styles.active_tasks}>
                             <p>Active Tasks</p>
-                            <p>25</p>
+                            <p>{user.activeTasks}</p>
                         </div>
                         <div className={styles.total_earnings}>
                             <p>Total Earnings</p>
-                            <p>P. 800</p>
+                            <p>{user.totalEarnings}</p>
                         </div>
                         <div className={styles.pending_earnings}>
                             <p>Pending Earnings</p>
-                            <p>P. 920</p>
+                            <p>{user.pendingEarnings}</p>
                         </div>
                     </div>
                     <div className={styles.clients_container}>
-
+            
                     </div>
                 </div>
                
