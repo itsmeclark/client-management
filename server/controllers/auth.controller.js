@@ -58,6 +58,7 @@ export const addAcount = async (req, res)=>{
     }
     
 }
+
 export const logoutUser = (req, res)=>{
     req.session.destroy((err)=>{
         if(err){

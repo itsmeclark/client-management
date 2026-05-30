@@ -11,7 +11,9 @@ const totalEarnings = `SELECT COALESCE(SUM(payment_amount), 0) as totalEarnings 
 
 const pendingEarnings =`SELECT COALESCE(SUM(payment_amount), 0) as pendingEarnings FROM clients WHERE user_id = ? AND (payment_status = 'pending')`
 
-const userInfo = `SELECT  * FROM users WHERE id = ?`
+const userInfo = `SELECT * FROM users WHERE id = ?`
+
+const clientLists = `SELECT * FROM clients WHERE user_id = ?`
 
 export const dashboard = (userid)=>{
     return new Promise((resolve, reject)=>{
@@ -37,12 +39,39 @@ export const dashboard = (userid)=>{
                             if (err) return reject(err)
                             data.userInfo = result[0]
                             
-                            resolve(data)
+                                db.query(clientLists,[userid], (err, result)=>{
+                                    if (err) return reject(err)
+                                    data.clientLists = result
+                                    resolve(data)
             
+                            })
+
                         })
                     })
                 })
             })
         })
     })
+}
+
+export const getInfo = (id,callback) => {
+    const sql = `SELECT * FROM clients WHERE client_id = ?`
+    db.query(sql, [id], callback)
+}
+export const updateClient = (id, first_name, last_name, email, payment_amount, payment_status, callback) => {
+    const sql = `UPDATE clients 
+                    SET first_name = ?, 
+                    last_name = ?,
+                    email = ?,
+                    payment_amount = ?,
+                    payment_status = ? WHERE client_id = ?`
+    db.query(sql, [first_name, last_name, email, payment_amount, payment_status, id], callback)
+}
+export const newClient = (user_id, first_name, last_name, email, payment_status, payment_amount, callback) => {
+    const sql = "INSERT INTO clients(user_id,first_name, last_name, email,payment_status, payment_amount) VALUES (?, ?, ?, ?,?,?)"
+    db.query(sql, [user_id, first_name, last_name, email, payment_status, payment_amount ], callback)
+}
+export const deleteClient = (client_id, callback)=>{
+    const sql = "DELETE FROM clients WHERE client_id = ?"
+    db.query(sql, [client_id], callback)
 }

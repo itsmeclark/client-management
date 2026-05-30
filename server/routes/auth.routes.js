@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.post('/register', addAcount)
 router.post('/login', findUser)
-router.post('/logout', logoutUser)
+router.get('/logout', logoutUser)
 router.get('/me', (req, res)=>{
     if(req.session.user){
         return res.json({
