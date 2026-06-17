@@ -73,11 +73,15 @@ export function HomePage(){
             <>
                   {user.clientLists.map((clients)=>{
                                     return <tr className={styles.table_row} key={clients.client_id}>
-                                            <td className={styles.row_data}>{clients.first_name} {clients.last_name}</td>
-                                            <td className={styles.row_data}>{clients.email}</td>
-                                            <td className={styles.row_data}>{clients.payment_status}</td>
-                                            <td className={styles.row_data}>{clients.payment_amount}</td>
-                                            <td className={styles.row_data}><Link to={`/home/dashboard/edit/${clients.client_id}`}><button>EDIT</button></Link><button value={clients.client_id} onClick={confirmation_delete}>DELETE</button></td>
+                                            <td className={styles.row_data_name}>{clients.first_name} {clients.last_name}</td>
+                                            <td className={styles.row_data_email}>{clients.email}</td>
+                                            <td className={clients.payment_status == 'paid' ? styles.row_data_statusPaid : styles.row_data_statusPending}>
+                                            <div>
+                                                {clients.payment_status}
+                                            </div>
+                                            </td>
+                                            <td className={styles.row_data_amount}>${clients.payment_amount}</td>
+                                            <td className={styles.row_data_btn}><Link to={`/home/dashboard/edit/${clients.client_id}`}><button className={styles.editBtn}>EDIT</button></Link><button value={clients.client_id} onClick={confirmation_delete} className={styles.deleteBtn}>DELETE</button></td>
                                     </tr>
                                 })
                     }
@@ -99,18 +103,22 @@ export function HomePage(){
                         <div className={styles.total_clients}>
                             <p>Total Clients</p>
                             <p>{user.totalClients}</p>
+                            <p>List of total clients</p>
                         </div>
                         <div className={styles.active_tasks}>
                             <p>Active Tasks</p>
                             <p>{user.activeTasks}</p>
+                            <p>All active tasks</p>
                         </div>
                         <div className={styles.total_earnings}>
                             <p>Total Earnings</p>
-                            <p>{user.totalEarnings}</p>
+                            <p>${user.totalEarnings}</p>
+                            <p>Total earnings this month</p>
                         </div>
                         <div className={styles.pending_earnings}>
                             <p>Pending Earnings</p>
-                            <p>{user.pendingEarnings}</p>
+                            <p>${user.pendingEarnings}</p>
+                            <p>Total pending earnings this month</p>
                         </div>
                     </div>
 

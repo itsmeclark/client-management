@@ -3,6 +3,7 @@ import LandingPage from './pages/landingPage.jsx';
 import LoginPage from './pages/loginPage.jsx';
 import RegisterPage from './pages/registerPage.jsx';
 import {HomePage, EditClient, AddClient} from './pages/homePage.jsx';
+import {TasksPage} from './pages/taskPage.jsx'
 
 function App(){
     return(
@@ -15,6 +16,7 @@ function App(){
                     <Route path='edit/:id' element={<EditClient/>}></Route>
                     <Route path='new' element={<AddClient/>}></Route>
                 </Route>
+                <Route path='/home/tasks' element={<TasksPage/>} />
             </Routes>
         </BrowserRouter>
     )
